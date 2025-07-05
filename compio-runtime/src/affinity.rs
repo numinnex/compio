@@ -27,10 +27,7 @@ pub fn bind_to_cpu_set(cpus: HashSet<usize>) -> Result<(), std::io::Error> {
     for cpu in cpu_set {
         let result = core_affinity::set_for_current(CoreId { id: *cpu });
         if !result {
-            compio_log::error!(
-                "Failed to bind current thread to CPU: {}",
-                cpu
-            );
+            compio_log::error!("Failed to bind current thread to CPU: {}", cpu);
             return Ok(());
         }
     }

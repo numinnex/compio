@@ -274,6 +274,16 @@ impl DispatcherBuilder {
     }
 
     /// Set the thread affinity for the dispatcher.
+    /// #example
+    /// ```
+    /// use std::collections::HashSet;
+    ///
+    /// use compio_dispatcher::DispatcherBuilder;
+    /// let builder = DispatcherBuilder::new()
+    ///     .thread_affinity(|index| HashSet::from([index]))
+    ///     .build()
+    ///     .unwrap();
+    /// ```
     pub fn thread_affinity(mut self, f: impl FnMut(usize) -> HashSet<usize> + 'static) -> Self {
         self.thread_affinity = Some(Box::new(f));
         self
